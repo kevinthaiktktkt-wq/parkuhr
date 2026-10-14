@@ -1,0 +1,53 @@
+name: ParkTimer
+
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+
+targets:
+  ParkTimer:
+    type: application
+    platform: iOS
+    sources:
+      - ParkTimer
+      - Shared
+    dependencies:
+      - target: ParkTimerWidget
+        embed: true
+    info:
+      path: ParkTimer/Info.plist
+      properties:
+        CFBundleDisplayName: Parkuhr
+        NSAlarmKitUsageDescription: "Die Parkuhr braucht diese Erlaubnis, um dich zur eingestellten Zeit mit einem Alarm zu erinnern."
+        NSSupportsLiveActivities: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.parkuhr
+
+  ParkTimerWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - ParkTimerWidget
+      - Shared
+    info:
+      path: ParkTimerWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Parkuhr Widget
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.parkuhr.widget
